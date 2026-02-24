@@ -2,210 +2,73 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Toko Kayu KBM Retail</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produk Kayu - Corporate</title>
 
 <style>
-:root{--primary:#0a5c0a;}
-
-body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  background:#f4f6f5;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f9;
 }
 
-/* HEADER */
-header{
-  background:white;
-  border-bottom:3px solid var(--primary);
+header {
+    background: #0a5c0a;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-.navbar{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px;
+nav {
+    text-align: center;
+    margin: 20px 0;
 }
 
-.logo{
-  font-size:22px;
-  font-weight:bold;
-  color:var(--primary);
+button {
+    padding: 10px 18px;
+    margin: 5px;
+    border: none;
+    background: #0a5c0a;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
 }
 
-nav ul{
-  list-style:none;
-  display:flex;
-  gap:24px;
-  margin:0;
-  padding:0;
+button:hover {
+    background: #084408;
 }
 
-nav li{
-  position:relative;
+#loading {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
-nav a{
-  text-decoration:none;
-  color:#333;
-  font-weight:bold;
-  cursor:pointer;
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
-nav a:hover{
-  color:var(--primary);
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-/* DROPDOWN */
-.dropdown{
-  display:none;
-  position:absolute;
-  top:30px;
-  right:0;
-  background:white;
-  box-shadow:0 4px 10px rgba(0,0,0,.15);
-  border-radius:6px;
-  overflow:hidden;
-  min-width:180px;
+.card h3 {
+    margin: 0 0 10px 0;
+    color: #0a5c0a;
 }
 
-.dropdown a{
-  display:block;
-  padding:10px 14px;
-}
-
-.dropdown a:hover{
-  background:#f1f1f1;
-}
-
-.dropdown.show{
-  display:block;
-}
-
-/* SECTION */
-section{display:none;}
-.active{display:block;}
-
-/* HERO */
-.hero{
-  background:white;
-  padding:60px 20px;
-  text-align:center;
-}
-
-.hero h1{
-  color:var(--primary);
-}
-
-/* PRODUK */
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-}
-
-.card{
-  background:white;
-  border-radius:10px;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 20px rgba(0,0,0,.15);
-}
-
-.card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
-
-.card-body{
-  padding:14px;
-}
-
-.card-body h3{
-  margin:0 0 6px;
-  color:var(--primary);
-}
-
-.harga{
-  font-weight:bold;
-  margin-top:8px;
-}
-
-.stok{
-  font-size:13px;
-  color:#666;
-}
-
-/* SKELETON */
-.skeleton{
-  background: linear-gradient(
-    90deg,
-    #eeeeee 25%,
-    #dddddd 37%,
-    #eeeeee 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.4s ease infinite;
-}
-
-@keyframes shimmer{
-  0%{background-position:100% 0;}
-  100%{background-position:-100% 0;}
-}
-
-.skeleton-img{
-  height:180px;
-}
-
-.skeleton-text{
-  height:14px;
-  margin:10px;
-  border-radius:4px;
-}
-
-/* KONTAK */
-#kontak{
-  background:var(--primary);
-  color:white;
-  padding:50px 20px;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:12px;
-  background:#083f08;
-  color:white;
-  font-size:13px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .navbar{
-    flex-direction:column;
-    gap:12px;
-  }
-  nav ul{
-    flex-direction:column;
-    gap:12px;
-  }
-  .dropdown{
-    position:static;
-  }
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #eee;
+    margin-top: 30px;
 }
 </style>
 </head>
@@ -213,123 +76,74 @@ footer{
 <body>
 
 <header>
-  <div class="navbar">
-    <div class="logo">Toko Kayu KBM Retail</div>
-    <nav>
-      <ul>
-        <li><a onclick="showSection('beranda')">Beranda</a></li>
-        <li id="menuProduk">
-          <a onclick="toggleDropdown()">Produk ▾</a>
-          <div class="dropdown" id="dropdownGudang">
-            <a onclick="loadProduk('IK_Saradan')">IK Saradan</a>
-            <a onclick="loadProduk('IK_Jatirogo')">IK Jatirogo</a>
-            <a onclick="loadProduk('IK_Ngawi')">IK Ngawi</a>
-          </div>
-        </li>
-        <li><a onclick="showSection('kontak')">Kontak</a></li>
-      </ul>
-    </nav>
-  </div>
+    <h1>Produk Kayu Perhutani</h1>
 </header>
 
-<section id="beranda" class="active">
-  <div class="hero">
-    <h1>Toko Kayu KBM Retail</h1>
-    <p>Menyediakan kayu berkualitas untuk kebutuhan anda.</p>
-  </div>
-</section>
+<nav>
+    <button onclick="tampilkanGudang('IK_Saradan')">IK Saradan</button>
+    <button onclick="tampilkanGudang('IK_Jatirogo')">IK Jatirogo</button>
+    <button onclick="tampilkanGudang('IK_Ngawi')">IK Ngawi</button>
+</nav>
 
-<section id="produk">
-  <div class="container">
-    <h2 id="judulGudang" style="color:#0a5c0a;"></h2>
-    <div id="produkGrid" class="grid"></div>
-  </div>
-</section>
+<div id="loading">Memuat data...</div>
+<div class="container" id="produk-list"></div>
 
-<section id="kontak">
-  <div style="max-width:1200px;margin:auto;">
-    <h2>Kontak Kami</h2>
-    <p>WhatsApp: 08xxxxxxxxxx</p>
-    <p>Contact Person: Admin KBM</p>
-  </div>
-</section>
-
-<footer>© 2026 Toko Kayu KBM Retail</footer>
+<div class="footer">
+    © 2026 Produk Kayu Corporate
+</div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbyT6OQ7hmKjqT9exM5sCQAt3CMopWT7-a7qBaTIqV3aCTvU7ArhOIJPrHickzuwAxE6/exec";
 
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+const API_URL = "https://script.google.com/macros/s/AKfycbyT6OQ7hmKjqT9exM5sCQAt3CMopWT7-a7qBaTIqV3aCTvU7ArhOIJPrHickzuwAxE6/exec; /exec
+let allData = {};
+
+// Load semua data saat pertama kali buka
+async function loadAllData() {
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("HTTP error");
+        }
+
+        const text = await response.text();
+        allData = JSON.parse(text);
+
+        document.getElementById("loading").style.display = "none";
+
+    } catch (error) {
+        document.getElementById("loading").innerHTML = "Gagal mengambil data";
+        console.error("ERROR:", error);
+    }
 }
 
-function toggleDropdown(){
-  document.getElementById("dropdownGudang").classList.toggle("show");
-}
+function tampilkanGudang(namaGudang) {
 
-document.addEventListener("click", function(e){
-  const menu = document.getElementById("menuProduk");
-  if(!menu.contains(e.target)){
-    document.getElementById("dropdownGudang").classList.remove("show");
-  }
-});
+    const data = allData[namaGudang];
+    const container = document.getElementById("produk-list");
 
-async function loadProduk(gudang){
-  showSection("produk");
-  document.getElementById("dropdownGudang").classList.remove("show");
+    container.innerHTML = "";
 
-  const grid = document.getElementById("produkGrid");
-  const judul = document.getElementById("judulGudang");
-
-  judul.innerText="Produk " + gudang.replace("_"," ");
-  grid.innerHTML="";
-
-  /* Skeleton Loading */
-  let skeleton="";
-  for(let i=0;i<6;i++){
-    skeleton+=`
-      <div class="card">
-        <div class="skeleton skeleton-img"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text"></div>
-      </div>
-    `;
-  }
-  grid.innerHTML=skeleton;
-
-  try{
-    const response = await fetch(API_URL + "?gudang=" + gudang);
-    const data = await response.json();
-
-    if(!data || data.length===0){
-      grid.innerHTML="<p style='text-align:center;'>Data produk tidak tersedia</p>";
-      return;
+    if (!data || data.length === 0) {
+        container.innerHTML = "<p>Data kosong</p>";
+        return;
     }
 
-    let html="";
-    data.forEach(p=>{
-      html+=`
-        <div class="card">
-          <img loading="lazy" src="${p.gambar || 'https://via.placeholder.com/400x300?text=Produk'}">
-          <div class="card-body">
-            <h3>${p.nama_product}</h3>
-            <p>Ukuran: ${p.ukuran}</p>
-            <p>Mutu: ${p.mutu}</p>
-            <div class="harga">Rp ${Number(p.harga).toLocaleString('id-ID')}</div>
-            <div class="stok">Stok: ${p.stock}</div>
-          </div>
-        </div>
-      `;
+    data.forEach(item => {
+        container.innerHTML += `
+            <div class="card">
+                <h3>${item.nama_product || "-"}</h3>
+                <p><b>Ukuran:</b> ${item.ukuran || "-"}</p>
+                <p><b>Mutu:</b> ${item.mutu || "-"}</p>
+                <p><b>Harga:</b> Rp ${Number(item.harga || 0).toLocaleString()}</p>
+                <p><b>Stock:</b> ${item.stock || 0}</p>
+            </div>
+        `;
     });
-
-    grid.innerHTML=html;
-
-  }catch(error){
-    grid.innerHTML="<p style='text-align:center;color:red;'>Gagal mengambil data</p>";
-  }
 }
+
+window.onload = loadAllData;
+
 </script>
 
 </body>
