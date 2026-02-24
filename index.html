@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Toko Kayu KBM Retail</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{--primary:#0a5c0a;}
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f4f6f5;
+}
+
+/* HEADER */
+header{
+  background:white;
+  border-bottom:3px solid var(--primary);
+}
+
+.navbar{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:var(--primary);
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:24px;
+  margin:0;
+  padding:0;
+}
+
+nav li{
+  position:relative;
+}
+
+nav a{
+  text-decoration:none;
+  color:#333;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+nav a:hover{
+  color:var(--primary);
+}
+
+/* DROPDOWN */
+.dropdown{
+  display:none;
+  position:absolute;
+  top:30px;
+  right:0;
+  background:white;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  border-radius:6px;
+  overflow:hidden;
+  min-width:180px;
+}
+
+.dropdown a{
+  display:block;
+  padding:10px 14px;
+}
+
+.dropdown a:hover{
+  background:#f1f1f1;
+}
+
+.dropdown.show{
+  display:block;
+}
+
+/* SECTION */
+section{display:none;}
+.active{display:block;}
+
+/* HERO */
+.hero{
+  background:white;
+  padding:60px 20px;
+  text-align:center;
+}
+
+.hero h1{
+  color:var(--primary);
+}
+
+/* PRODUK */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:14px;
+}
+
+.card-body h3{
+  margin:0 0 6px;
+  color:var(--primary);
+}
+
+.harga{
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.stok{
+  font-size:13px;
+  color:#666;
+}
+
+/* SKELETON */
+.skeleton{
+  background: linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #dddddd 37%,
+    #eeeeee 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:100% 0;}
+  100%{background-position:-100% 0;}
+}
+
+.skeleton-img{
+  height:180px;
+}
+
+.skeleton-text{
+  height:14px;
+  margin:10px;
+  border-radius:4px;
+}
+
+/* KONTAK */
+#kontak{
+  background:var(--primary);
+  color:white;
+  padding:50px 20px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:12px;
+  background:#083f08;
+  color:white;
+  font-size:13px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .navbar{
+    flex-direction:column;
+    gap:12px;
+  }
+  nav ul{
+    flex-direction:column;
+    gap:12px;
+  }
+  .dropdown{
+    position:static;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">Toko Kayu KBM Retail</div>
+    <nav>
+      <ul>
+        <li><a onclick="showSection('beranda')">Beranda</a></li>
+        <li id="menuProduk">
+          <a onclick="toggleDropdown()">Produk ▾</a>
+          <div class="dropdown" id="dropdownGudang">
+            <a onclick="loadProduk('IK_Saradan')">IK Saradan</a>
+            <a onclick="loadProduk('IK_Jatirogo')">IK Jatirogo</a>
+            <a onclick="loadProduk('IK_Ngawi')">IK Ngawi</a>
+          </div>
+        </li>
+        <li><a onclick="showSection('kontak')">Kontak</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="beranda" class="active">
+  <div class="hero">
+    <h1>Toko Kayu KBM Retail</h1>
+    <p>Menyediakan kayu berkualitas untuk kebutuhan anda.</p>
+  </div>
+</section>
+
+<section id="produk">
+  <div class="container">
+    <h2 id="judulGudang" style="color:#0a5c0a;"></h2>
+    <div id="produkGrid" class="grid"></div>
+  </div>
+</section>
+
+<section id="kontak">
+  <div style="max-width:1200px;margin:auto;">
+    <h2>Kontak Kami</h2>
+    <p>WhatsApp: 08xxxxxxxxxx</p>
+    <p>Contact Person: Admin KBM</p>
+  </div>
+</section>
+
+<footer>© 2026 Toko Kayu KBM Retail</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyT6OQ7hmKjqT9exM5sCQAt3CMopWT7-a7qBaTIqV3aCTvU7ArhOIJPrHickzuwAxE6/exec";
+
+function showSection(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function toggleDropdown(){
+  document.getElementById("dropdownGudang").classList.toggle("show");
+}
+
+document.addEventListener("click", function(e){
+  const menu = document.getElementById("menuProduk");
+  if(!menu.contains(e.target)){
+    document.getElementById("dropdownGudang").classList.remove("show");
+  }
+});
+
+async function loadProduk(gudang){
+  showSection("produk");
+  document.getElementById("dropdownGudang").classList.remove("show");
+
+  const grid = document.getElementById("produkGrid");
+  const judul = document.getElementById("judulGudang");
+
+  judul.innerText="Produk " + gudang.replace("_"," ");
+  grid.innerHTML="";
+
+  /* Skeleton Loading */
+  let skeleton="";
+  for(let i=0;i<6;i++){
+    skeleton+=`
+      <div class="card">
+        <div class="skeleton skeleton-img"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+      </div>
+    `;
+  }
+  grid.innerHTML=skeleton;
+
+  try{
+    const response = await fetch(API_URL + "?gudang=" + gudang);
+    const data = await response.json();
+
+    if(!data || data.length===0){
+      grid.innerHTML="<p style='text-align:center;'>Data produk tidak tersedia</p>";
+      return;
+    }
+
+    let html="";
+    data.forEach(p=>{
+      html+=`
+        <div class="card">
+          <img loading="lazy" src="${p.gambar || 'https://via.placeholder.com/400x300?text=Produk'}">
+          <div class="card-body">
+            <h3>${p.nama_product}</h3>
+            <p>Ukuran: ${p.ukuran}</p>
+            <p>Mutu: ${p.mutu}</p>
+            <div class="harga">Rp ${Number(p.harga).toLocaleString('id-ID')}</div>
+            <div class="stok">Stok: ${p.stock}</div>
+          </div>
+        </div>
+      `;
+    });
+
+    grid.innerHTML=html;
+
+  }catch(error){
+    grid.innerHTML="<p style='text-align:center;color:red;'>Gagal mengambil data</p>";
+  }
+}
+</script>
+
+</body>
+</html>
